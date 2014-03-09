@@ -4,6 +4,7 @@ rodzic(tomek,eliza).
 rodzic(robert,anna).
 rodzic(robert,magda).
 rodzic(magda,jan).
+rodzic(kasia,eliza).
 
 kobieta(kasia).
 kobieta(eliza).
@@ -13,12 +14,6 @@ kobieta(anna).
 mezczyzna(tomek).
 mezczyzna(robert).
 mezczyzna(jan).
-
-
-famme(kasia).
-homme(krzys).
-parent(kasia,krzys).
-
 
 matka(X,Y) :-
 	rodzic(X,Y),
@@ -55,16 +50,18 @@ przodek(X,Z) :-
 	rodzic(X,Y),
 	przodek(Y,Z).
 
-potomek(X,Y) :-
-	rodzic(Y,X).
+%potomek(X,Y) :-
+	%rodzic(Y,X).
 
-potomek(X,Z) :-
-	rodzic(Z,Y),
-	potomek(X,Y).
+%potomek(X,Z) :-
+	%rodzic(Z,Y),
+	%potomek(X,Y).
+
+potomek(X,Y) :-
+	przodek(Y,X).
 
 krewny(X,Y) :-
 	przodek(Z,Y),
 	przodek(Z,X),
-	X\=Y.
-
+	X \= Y.
 
