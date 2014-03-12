@@ -1,16 +1,13 @@
-trzeci([A,B,C|Reszta],C).
-czwarty([A,B,C,D|Reszta],D).
-
-porownaj34(X) :-
-    trzeci(X,Trzeci),
-    czwarty(X,Czwarty),
-    Czwarty = Trzeci,
+porownaj(List) :-
+    [A,B,C,D|Rest] = List,
+    C = D,
     write('Tak').
 
-porownaj34(X) :-
-    trzeci(X,Trzeci),
-    czwarty(X,Czwarty),
-    Czwarty \= Trzeci,
+porownaj(List) :-
+    [A,B,C,D|Rest] = List,
+    C \= D,
     write('Nie').
 
-
+zamien(List, X) :-
+	[A, B, C, D|Rest] = List,
+	append([A,B,D,C], Rest, X).
