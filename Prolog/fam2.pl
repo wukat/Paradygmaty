@@ -60,8 +60,17 @@ przodek(X,Z) :-
 potomek(X,Y) :-
 	przodek(Y,X).
 
-krewny(X,Y) :-
-	przodek(Z,Y),
-	przodek(Z,X),
-	X \= Y.
+%krewny(X,Y) :-
+%	przodek(Z,Y),
+%	przodek(Z,X),
+%	X \= Y.
 
+:-dynamic(krewny1/2).
+
+krewny(X,Y) :-
+	przodek(Z,X),
+	przodek(Z,Y),
+	X \= Y,
+	\+krewny1(X,Y),
+	assert(krewny1(X,Y)),
+	assert(krewny1(Y,X)).
