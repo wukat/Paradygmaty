@@ -39,3 +39,29 @@ ostatni(Element, [Element]).
 ostatni(Element, Lista) :- %bez sklej
 	[_|Reszta] = Lista,
 	ostatni(Element,Reszta).
+
+dodaj(X,L,[X|L]).
+
+usun(X,[X|Reszta],Reszta).
+usun(X,[Y|Ogon],[Y|Reszta]) :-
+	usun(X,Ogon,Reszta).
+
+wstaw(X,L,Duza) :-
+	usun(X,Duza,L).
+
+nalezy2(X,L) :-
+	usun(X,L,_).
+
+zawiera(S,L) :-  %L zawiera S
+	sklej(_,L2,L), %cos + L2 da L
+	sklej(S,_,L2). %s + cos da L2
+
+permutacja([],[]).
+permutacja([X|L],P) :-
+	permutacja(L,L1),
+	wstaw(X,L1,P).
+	 
+permutacja2([],[]).
+permutacja2(L,[X|P]) :-
+	usun(X,L,L1),
+	permutacja2(L1,P).
