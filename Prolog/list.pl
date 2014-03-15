@@ -12,7 +12,7 @@ zamien(Lista, X) :- %podmienia 3 z 4
 	[A, B, C, D|Reszta] = Lista, 
 	append([A,B,D,C], Reszta, X). %[A,B,C,D] + Reszta leci do X
 
-%CODE BELOW IS NOT MINE, only for studying
+%CODE BELOW IS NOT MINE, only for studying (from http://ai.ia.agh.edu.pl/wiki/pl:prolog:prolog_lab:listy1)
 
 nalezy(X,[X|_]). % jesli pierwszy element
 nalezy(X,[_|Yogon]) :- %rekurencyjnie, sprawdzamy całą listę aż X będzie pierwszy
