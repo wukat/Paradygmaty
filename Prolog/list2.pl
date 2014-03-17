@@ -79,7 +79,38 @@ podziel(L,L1,L2) :-
 	X - Y < 2,
 	Y - X < 2.
 	
-splaszcz(L, X) :-
+%makes list like [a,b,c] from [[a], b, [[c]]] (example)
+splaszcz([Y|L], X) :- 
+	splaszcz(Y, Z),
+	splaszcz(L, W),
+	sklej(Z, W, X).
+splaszcz([],[]).
+splaszcz(Y, [Y]) :-
+	\+ [_|_] = Y,
+	Y \= [].
+
+% function change given value for numbers of given denominations
+% first argument is amount, second change
+moneta(1). %coin 1
+moneta(2).
+moneta(5).
+moneta(0.5).
+moneta(0.2).
+moneta(0.1).
+moneta(0.05).
+moneta(0.02).
+moneta(0.01).
+%no idea how to make it
+rozmien(Kwota, Wymiana) :-
+	Kwota > 0,
+	FiveB is floor(Kwota/5),
+	Wymiana = [FiveB].
+
+
+
+
+
+
 	
 
 
