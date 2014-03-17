@@ -47,11 +47,20 @@ przesun([X|L1], L2) :-
     sklej(L1, [X], L2).
 
 %translates numbers (0-9) to words
-przeloz([1], [one]).
-przeloz([2], [two]).
-przeloz([3], [three]).
-przeloz([4], [four]).
-przeloz([5], [five]).
-przeloz([6], [six]).
-przeloz(L,X) :-
+znaczy(0,zero).   %znaczy = means
+znaczy(1,jeden).
+znaczy(2,dwa).    
+znaczy(3,trzy).
+znaczy(4,cztery). 
+znaczy(5,piec).
+znaczy(6,szesc).  
+znaczy(7,siedem).
+znaczy(8,osiem).  
+znaczy(9,dziewiec).
+przeloz([], []).
+przeloz([Y|L],[Z|X]) :-
+	znaczy(Y, Z),
+	przeloz(L, X).
+
+
 
