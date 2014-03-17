@@ -70,11 +70,17 @@ podzbior(L,[Y|Z]) :-
 
 %divides list L to two, same length (+-1)
 podziel(L,L1,L2) :-
-	
-	dlugosc(L1, X),
+	podzbior(L, L1),
+	podzbior(L, L2),
+	sklej(L1, L2, Z),
+	permutacja2(L, Z), %permutation
+	dlugosc(L1, X), %counts length of list (X is a result)
 	dlugosc(L2, Y),
 	X - Y < 2,
 	Y - X < 2.
+	
+splaszcz(L, X) :-
+	
 
 
 
