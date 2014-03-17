@@ -62,5 +62,19 @@ przeloz([Y|L],[Z|X]) :-
 	znaczy(Y, Z),
 	przeloz(L, X).
 
+%checks if second is a subset of L
+podzbior(_, []).
+podzbior(L,[Y|Z]) :-
+   usun(Y, L, L1), %usun removes Y from L, gives L1
+   podzbior(L1,Z).
+
+%divides list L to two, same length (+-1)
+podziel(L,L1,L2) :-
+	
+	dlugosc(L1, X),
+	dlugosc(L2, Y),
+	X - Y < 2,
+	Y - X < 2.
+
 
 
