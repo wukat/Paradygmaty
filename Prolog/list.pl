@@ -1,16 +1,5 @@
-porownaj(Lista) :-  %trzeci z czwartym
-    [_,_,C,D|_] = Lista,
-    C = D,
-    write('Tak').
-
-porownaj(Lista) :- %różne
-    [_,_,C,D|_] = Lista,
-    C \= D,
-    write('Nie').
-
-zamien(Lista, X) :- %podmienia 3 z 4
-	[A, B, C, D|Reszta] = Lista, 
-	append([A,B,D,C], Reszta, X). %[A,B,C,D] + Reszta leci do X
+porownaj([_,_,D,D|_]).  %trzeci z czwartym
+zamien([A, B, C, D|Reszta], [A, B, D, C|Reszta]).
 
 %CODE BELOW IS NOT MINE, only for studying (from http://ai.ia.agh.edu.pl/wiki/pl:prolog:prolog_lab:listy1)
 
@@ -36,8 +25,7 @@ nalezy1(X,L) :- %druga wersja
 	sklej(_,[X|_],L). %nalezy X do L jeśli da się skleić coś + Xcoś żeby dostać L
 
 ostatni1(Element,Lista) :- %z uzyciem sklej
-	sklej(_,[Element], Lista). %jeśli da się skleić coś z Element, to wiadomo że będzie osattnim
-
+	sklej(_,[Element], Lista). %jeśli da się skleić coś z Element, to wiadomo że będzie osatnim
 %bez sklej
 ostatni(Element, [Element]). %rekurencyjnie, ostatni jeśli Element jest jedyny w liście
 ostatni(Element, Lista) :- 
