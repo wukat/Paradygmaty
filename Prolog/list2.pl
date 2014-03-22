@@ -1,26 +1,24 @@
 % using list.pl
 
-% drops 3 last elements of firt argument
+% drops 3 last elements of firt argument -> works only when first argument given
 % uses sklej(A, B, C) -> C is glued A and B
-drop3last([_, _, _], []).
-drop3last([X|L], L1) :-
-	truncate3last(L, Y),
-	sklej([X], Y, L1).
+drop3last(L, L1) :-
+	sklej([_,_,_], L1, L).
 
 %drops 3 first elements of first argument, uses sklej
-drop3first([A, B, C|Rest], L1) :-
-	sklej([A, B, C], L1, [A, B, C|Rest]).
+drop3first(L, L1) :-
+	sklej([_,_,_], L1, L).
+
+drop3firstDif(L, L1) :-
+	sklej_roznicowo([_,_,_|L1] - L1, L1, L).
 
 %drops 3 first and 3 last elements of first argument, uses sklej
-drop3firstAnd3last([_|L], L2) :-
-    sklej(Y, [_], L),
-    [_|Y1] = Y,
-    sklej(Y2, [_], Y1),
-    [_|Y3] = Y2,
-    sklej(L2, [_], Y3).
+drop3firstAnd3last(L, L2) :-
+	sklej([_,_,_], L1, L),
+	sklej([_,_,_], L2, L1).
 
 %chceks if number of elements is odd
-nieparzysta([_]).
+nieparzysta([_|[]]).
 nieparzysta([_, _|L]) :-
    nieparzysta(L).
 
@@ -45,6 +43,7 @@ palindrom2([X|L]) :-
 %shifts L1 in that way L1 = [1 2 3], L2 = [3 1 2]
 przesun([X|L1], L2) :-
     sklej(L1, [X], L2).
+
 
 %translates numbers (0-9) to words
 znaczy(0,zero).   %znaczy = means
@@ -91,20 +90,20 @@ splaszcz(Y, [Y]) :-
 
 % function change given value for numbers of given denominations
 % first argument is amount, second change
-moneta(1). %coin 1
-moneta(2).
-moneta(5).
-moneta(0.5).
-moneta(0.2).
-moneta(0.1).
-moneta(0.05).
-moneta(0.02).
-moneta(0.01).
+%moneta(1). %coin 1
+%moneta(2).
+%moneta(5).
+%moneta(0.5).
+%moneta(0.2).
+%moneta(0.1).
+%moneta(0.05).
+%moneta(0.02).
+%moneta(0.01).
 %no idea how to make it
-rozmien(Kwota, Wymiana) :-
-	Kwota > 0,
-	FiveB is floor(Kwota/5),
-	Wymiana = [FiveB].
+%rozmien(Kwota, Wymiana) :-
+%	Kwota > 0,
+%	FiveB is floor(Kwota/5),
+%	Wymiana = [FiveB].
 
 
 
