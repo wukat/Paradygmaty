@@ -2,6 +2,7 @@ porownaj([_,_,D,D|_]).  %trzeci z czwartym
 zamien([A, B, C, D|Reszta], [A, B, D, C|Reszta]).
 
 %CODE BELOW IS NOT MINE, only for studying (from http://ai.ia.agh.edu.pl/wiki/pl:prolog:prolog_lab:listy1)
+% comments below explains how clauses works (in Polish)
 
 nalezy(X,[X|_]). % jesli pierwszy element
 nalezy(X,[_|Yogon]) :- %rekurencyjnie, sprawdzamy całą listę aż X będzie pierwszy
@@ -24,6 +25,7 @@ sklej([X|L1],L2,[X|L3]) :- %3 argument to poczatek (czyli X) oraz sklejenie konc
 nalezy1(X,L) :- %druga wersja
 	sklej(_,[X|_],L). %nalezy X do L jeśli da się skleić coś + Xcoś żeby dostać L
 
+%%%%%%%%%%%% HERE IS MY PART %%%%%%%%%%
 ostatni1(Element,Lista) :- %z uzyciem sklej
 	sklej(_,[Element], Lista). %jeśli da się skleić coś z Element, to wiadomo że będzie osatnim
 %bez sklej
@@ -31,6 +33,8 @@ ostatni(Element, [Element]). %rekurencyjnie, ostatni jeśli Element jest jedyny 
 ostatni(Element, Lista) :- 
 	[_|Reszta] = Lista, % _ - pierwszy element, Reszta - ogon, sukcesywnie zmniejszamy o jeden
 	ostatni(Element,Reszta). % i tak do skutku, jeśli zostanie tylko Element w liscie to true
+
+%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%
 
 dodaj(X,L,[X|L]). %dodajemy L do X 
 
@@ -89,3 +93,23 @@ odwr2([H|T],A,R) :- % pierwszy element, ogon, akumulator, prawa lista
      odwr2(T,[H|A],R). %wywoluje to samo, tylko że H poszło do akumulatora; zaczynajac od pustego, będą w nim się odkładać w 
      					%kolejności "od tyłu"
 odwr2([],A,A). %a jak już nie ma co odkładać, to wracamy.
+
+
+% notation L - End groups L and End
+sklej_roznicowo(L - End, End, L). %glue using difference list
+%sklej_roznicowo([a,b,c|End]-End,[d,e,f],Wynik). % example
+sklej_roznicowo(L - End, End - End2, L - End2). %glue using difference list
+
+%example from http://en.wikibooks.org/wiki/Prolog/Difference_Lists
+append(I-M, M-O, I-O).
+append([a,b,c|E]-E,  [x,y,z|W]-W,  O).
+%E = [x, y, z|W],
+%O = [a, b, c, x, y, z|W]-W.
+
+%%%%%%%%%%%%%%%%%%% BELOW MINE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% redefinition of some of clauses using difference lists 
+
+zawiera3(S,[_|Tail]) :-
+	zawiera(S, Tail).
+zawiera3(S, L) :-
+	sklej_roznicowo(S - X, X, L).
