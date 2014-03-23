@@ -44,7 +44,6 @@ palindrom2([X|L]) :-
 przesun([X|L1], L2) :-
     sklej(L1, [X], L2).
 
-
 %translates numbers (0-9) to words
 znaczy(0,zero).   %znaczy = means
 znaczy(1,jeden).

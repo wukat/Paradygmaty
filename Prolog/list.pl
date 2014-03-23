@@ -101,8 +101,8 @@ sklej_roznicowo(L - End, End, L). %glue using difference list
 sklej_roznicowo(L - End, End - End2, L - End2). %glue using difference list
 
 %example from http://en.wikibooks.org/wiki/Prolog/Difference_Lists
-append(I-M, M-O, I-O).
-append([a,b,c|E]-E,  [x,y,z|W]-W,  O).
+%append(I-M, M-O, I-O).
+%append([a,b,c|E]-E,  [x,y,z|W]-W,  O).
 %E = [x, y, z|W],
 %O = [a, b, c, x, y, z|W]-W.
 
