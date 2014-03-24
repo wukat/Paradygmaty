@@ -11,7 +11,7 @@
 %  X X 8 X X 	%pink
 % X 1 X X 6 X	%blue
 % 
-% INVOCATION: pyramidSmall([2], [A, B], [C, D, E], [5, F, G, 4], [H, I, 8, J, K], [L, 1, M, N, 6, O]).
+% INVOCATION: solveSmall.
 
 
 % %%%%%%%%%%%%%% SECOND %%%%%%%%%%%%%%
@@ -26,8 +26,7 @@
 %  X X 8 X X 6 X X
 % 8 X X X 5 X X X 7 	%blue
 %
-% INVOCATION: pyramidBig([A], [B, C], [D, 2, E], [7, F, G, 2], [H, I, J, K, L], [M, 5, N, O, 2, P], [5, R, S, 5, T, U, 1],
-%	[W, Y, 8, Z, Aa, 6, Ab, Ac], [8, Ad, Ae, Af, 5, Ag, Ah, Ai, 7]).
+% INVOCATION: solveBig.
 
 digit(1).
 digit(2).
@@ -64,6 +63,10 @@ set2Rows([U|Upper], [L|Lower]) :-
 	up(L, L1, U),
 	set2Rows(Upper, Lower).
 
+sklej([],X,X). 
+sklej([X|L1],L2,[X|L3]) :-
+	sklej(L1,L2,L3).
+
 splaszcz([Y|L], X) :- %flattern
 	splaszcz(Y, Z),
 	splaszcz(L, W),
@@ -79,17 +82,20 @@ blueRow(Row) :-
 pinkRow(Row) :-
 	\+ list_to_set(Row, Row).
 
+solveSmall :-
+	pyramidSmall([2], [_, _], [_, _, _], [5, _, _, 4], [_, _, 8, _, _], [_, 1, _, _, 6, _]).
+
 % from the top
 % first argument - list length 1, second - 2, and so on
 pyramidSmall(A, B, C, D, E, F) :-
 	set2RowsLowerBlue(A,B),
-	set2RowsLowerBlue(E,F),
-	pinkRow(E),
-	set2Rows(D,E),
-	pinkRow(D),
 	set2Rows(B,C),
 	pinkRow(C),
 	set2Rows(C,D),
+	pinkRow(D),
+	set2Rows(D,E),
+	pinkRow(E),
+	set2RowsLowerBlue(E,F),
 	write(A),
 	put("\n"),
 	write(B),
@@ -103,6 +109,10 @@ pyramidSmall(A, B, C, D, E, F) :-
 	write(F), 
 	put("\n"),
 	fail.
+
+solveBig :-
+	pyramidBig([_], [_, _], [_, 2, _], [7, _, _, 2], [_, _, _, _, _], [_, 5, _, _, 2, _], [5, _, _, 5, _, _, 1],
+	[_, _, 8, _, _, 6, _, _], [8, _, _, _, 5, _, _, _, 7]).
 
 pyramidBig(A, B, C, D, E, F, G, H, I) :-
 	set2RowsLowerBlue(H, I),
