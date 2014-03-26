@@ -3,7 +3,7 @@
 % drops 3 last elements of firt argument -> works only when first argument given
 % uses sklej(A, B, C) -> C is glued A and B
 drop3last(L, L1) :-
-	sklej([_,_,_], L1, L).
+	sklej(L1, [_,_,_], L).
 
 %drops 3 first elements of first argument, uses sklej
 drop3first(L, L1) :-
@@ -15,16 +15,16 @@ drop3firstDif(L, L1) :-
 %drops 3 first and 3 last elements of first argument, uses sklej
 drop3firstAnd3last(L, L2) :-
 	sklej([_,_,_], L1, L),
-	sklej([_,_,_], L2, L1).
+	sklej(L2, [_,_,_], L1).
 
 %chceks if number of elements is odd
-nieparzysta([_|[]]).
-nieparzysta([_, _|L]) :-
-   nieparzysta(L).
+nieparzysta([_|L]) :-
+   parzysta(L).
 
 %checks if number of elements is even
-parzysta(L) :-
-	\+ nieparzysta(L).
+parzysta([]).
+parzysta([_|L]) :-
+	nieparzysta(L).
 
 %checks if list is a palindrom
 %using odwroc2 (reverse)
@@ -36,9 +36,9 @@ palindrom(L) :-
 palindrom2([]).
 palindrom2([_]).
 palindrom2([X|L]) :-
-    sklej(Y1, [Z], L),
-    X = Z,
-    palindrom2(Y1).
+    sklej(Y1, [X], L),
+    palindrom2(Y1),
+    !.
 
 %shifts L1 in that way L1 = [1 2 3], L2 = [3 1 2]
 przesun([X|L1], L2) :-
@@ -63,8 +63,8 @@ przeloz([Y|L],[Z|X]) :-
 %checks if second is a subset of L
 podzbior(_, []).
 podzbior(L,[Y|Z]) :-
-   usun(Y, L, L1), %usun removes Y from L, gives L1
-   podzbior(L1,Z).
+    usun(Y, L, L1), %usun removes Y from L, gives L1
+    podzbior(L1,Z).
 
 %divides list L to two, same length (+-1)
 podziel(L,L1,L2) :-
@@ -78,14 +78,14 @@ podziel(L,L1,L2) :-
 	Y - X < 2.
 	
 %makes list like [a,b,c] from [[a], b, [[c]]] (example)
-splaszcz([Y|L], X) :- 
+splaszcz([],[]).
+splaszcz(Y, [Y]) :-
+\+ [_|_] = Y, % Y is not a list
+Y \= [].
+splaszcz([Y|L], X) :-
 	splaszcz(Y, Z),
 	splaszcz(L, W),
 	sklej(Z, W, X).
-splaszcz([],[]).
-splaszcz(Y, [Y]) :-
-	\+ [_|_] = Y,
-	Y \= [].
 
 % function change given value for numbers of given denominations
 % first argument is amount, second change
