@@ -110,6 +110,6 @@ sklej_roznicowo(L - End, End - End2, L - End2). %glue using difference list
 % redefinition of some of clauses using difference lists 
 
 zawiera3(S,[_|Tail]) :-
-	zawiera(S, Tail).
+	zawiera3(S, Tail).
 zawiera3(S, L) :-
 	sklej_roznicowo(S - X, X, L).
