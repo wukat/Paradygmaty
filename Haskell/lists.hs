@@ -23,4 +23,5 @@ lastMy (first : others) = lastMy others
 
 elemMy x [] = False
 elemMy x (first : others) | x == first = True
-elemMy x (first : others) = elemMy x others
+                            | otherwise = elemMy x others
+
