@@ -56,6 +56,17 @@ nsum tree@(Node val left right) = nsum left + nsum right + val
 tmap op Empty = Empty
 tmap op tree@(Node val left right) = Node (op val) (tmap op left) (tmap op right)
 
+remove el Empty = Empty
+remove el tree@(Node val Empty Empty)   | el == val = Empty
+remove el tree@(Node val left Empty)    | el == val = left
+remove el tree@(Node val Empty right)   | el == val = right
+remove el tree@(Node val left right)    | el == val = Node (succVal right) left (remove (succVal right) right)
+remove el tree@(Node val left right) = Node val (remove el left) (remove el right)
+
+succVal tree@(Node val Empty right) = val
+succVal tree@(Node val left right) = succVal left
+
+
 {-
 let tree = Node 'a' Empty Empty
 let tree2 = insert 'd' tree
