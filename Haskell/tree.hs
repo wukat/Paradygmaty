@@ -46,7 +46,8 @@ nnodes tree@(Node val left right) = nnodes left + nnodes right + 1
 nsum Empty = 0
 nsum tree@(Node val left right) = nsum left + nsum right + val
 
-tmap Empty = Empty
+tmap op Empty = Empty
+tmap op tree@(Node val left right) = Node (op val) (tmap op left) (tmap op right)
 
 {-
 let tree = Node 'a' Empty Empty
