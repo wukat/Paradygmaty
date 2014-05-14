@@ -15,6 +15,13 @@ search el tree@(Node val left right)
                | val > el = search el left
                | val < el = search el right
 
+isBalanced Empty = True
+isBalanced tree@(Node val Empty right@(Node valR leftR rightR))
+                | (leftR /= Empty || rightR /= Empty) = False
+isBalanced tree@(Node val left@(Node valL leftL rightL) Empty)
+                | (leftL /= Empty || rightL /= Empty) = False
+isBalanced tree@(Node val left right) = isBalanced left && isBalanced right
+
 vlr Empty = []
 vlr tree@(Node val left right) = [val] ++ vlr left ++ vlr right
 
