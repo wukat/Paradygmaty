@@ -61,11 +61,11 @@ remove el tree@(Node val Empty Empty)   | el == val = Empty
 remove el tree@(Node val left Empty)    | el == val = left
 remove el tree@(Node val Empty right)   | el == val = right
 remove el tree@(Node val left right)    | el == val = Node (succVal right) left (remove (succVal right) right)
-remove el tree@(Node val left right) = Node val (remove el left) (remove el right)
+                                        | el > val = Node val left (remove el right)
+                                        | otherwise = Node val (remove el left) right
 
 succVal tree@(Node val Empty right) = val
 succVal tree@(Node val left right) = succVal left
-
 
 {-
 let tree = Node 'a' Empty Empty
@@ -77,4 +77,15 @@ let tree = Node 2 Empty Empty
 let tree2 = insert 3 tree
 let tree3 = insert  7 tree2
 let tree4 = insert  4 tree3
+
+let tree = Node 8 Empty Empty
+let tree1 = insert 10 tree
+let tree2 = insert 14 tree1
+let tree3 = insert 13 tree2
+let tree4 = insert 3 tree3
+let tree5 = insert 6 tree4
+let tree6 = insert 7 tree5
+let tree7 = insert 4 tree6
+let tree8 = insert 1 tree7
+
 -}
