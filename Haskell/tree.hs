@@ -16,6 +16,7 @@ search el tree@(Node val left right)
                | val < el = search el right
 
 isBinary Empty = True
+isBinary tree@(Node val Empty Empty) = True
 isBinary tree@(Node val Empty right@(Node valR _ _))
                = val < valR && isBinary right
 isBinary tree@(Node val left@(Node valL _ _) Empty)
