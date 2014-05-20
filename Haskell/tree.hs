@@ -15,6 +15,15 @@ search el tree@(Node val left right)
                | val > el = search el left
                | val < el = search el right
 
+isBinary Empty = True
+isBinary tree@(Node val Empty right@(Node valR leftR rightR))
+               = val < valR && isBinary right
+isBinary tree@(Node val left@(Node valL leftL rightL) Empty)
+               = val > valL && isBinary left
+isBinary tree@(Node val left@(Node valL leftL rightL) right@(Node valR leftR rightR))
+               = val > valL && val < valR && isBinary left && isBinary right
+
+
 isBalanced Empty = True
 isBalanced tree@(Node val Empty right@(Node valR leftR rightR))
                 | (leftR /= Empty || rightR /= Empty) = False
