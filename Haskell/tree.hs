@@ -108,3 +108,10 @@ makeLayout2 tree@(Node val left right) count level   = (Node ((count2 + 1, level
                                                      (fst (makeLayout2 left count (level + 1)))
                                                      (fst (makeLayout2 right (count2 + 2) (level + 1))), count2)
                                                      where count2 = snd (makeLayout2 left count (level + 1))
+
+enumerateLevel Empty = Empty
+enumerateLevel tree = enumerateLevel2 tree 0
+enumerateLevel2 Empty _ = Empty
+enumerateLevel2 tree@(Node val left right) level = Node (val, level) (enumerateLevel2 left (level + 1)) (enumerateLevel2 right (level + 1))
+
+
