@@ -51,7 +51,7 @@ rlv Empty = []
 rlv tree@(Node val left right) = rlv right ++ rlv left ++ [val]
 
 toString Empty = []
-toString tree@(Node val left right) = [val] ++ "(" ++ (toString left) ++ [','] ++ (toString right) ++ ")"
+toString tree@(Node val left right) = (show val) ++ "(" ++ (toString left) ++ [','] ++ (toString right) ++ ")"
 
 leaves Empty = []
 leaves tree@(Node val Empty Empty) = [val]
@@ -77,25 +77,23 @@ remove el tree@(Node val left right)    | el == val = Node (succVal right) left 
 succVal tree@(Node val Empty right) = val
 succVal tree@(Node val left right) = succVal left
 
-{-
-let tree = Node 'a' Empty Empty
-let tree2 = insert 'd' tree
-let tree3 = insert  'e' tree2
-let tree4 = insert  'b' tree3
+valueOf tree@(Node val _ _) = val
 
-let tree = Node 2 Empty Empty
-let tree2 = insert 3 tree
-let tree3 = insert  7 tree2
-let tree4 = insert  4 tree3
+dumpDOT tree = "digraph G {\n" ++ dumpDOT2 tree ++ "}"
+dumpDOT2 tree@(Node val left right) | left /= Empty && right /= Empty = (show val) ++ "->" ++ (show (valueOf left)) ++ "\n"
+                                    ++ (show val) ++ "->" ++ (show (valueOf right)) ++ "\n" ++ (dumpDOT2 left) ++ (dumpDOT2 right)
+                                    | left /= Empty && right == Empty = (show val) ++ "->" ++ (show (valueOf left)) ++ "\n" ++ (dumpDOT2 left)
+                                    | right /= Empty && left == Empty = (show val) ++ "->" ++ (show (valueOf right)) ++ "\n" ++ (dumpDOT2 right)
+                                    | otherwise = []
 
-let tree = Node 8 Empty Empty
-let tree1 = insert 10 tree
-let tree2 = insert 14 tree1
-let tree3 = insert 13 tree2
-let tree4 = insert 3 tree3
-let tree5 = insert 6 tree4
-let tree6 = insert 7 tree5
-let tree7 = insert 4 tree6
-let tree8 = insert 1 tree7
 
--}
+fromList [] = Empty
+fromList (beg : other) = fromList2 other $ Node beg Empty Empty
+fromList2 [] tree = tree
+fromList2 (beg : other) tree = fromList2 other $ insert beg tree
+
+getLevel level Empty = []
+getLevel 0 tree@(Node val _ _) = [val]
+getLevel level tree@(Node _ left right) | level > 0 = getLevel (level - 1) left ++ getLevel (level - 1) right
+
+
