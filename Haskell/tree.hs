@@ -92,7 +92,7 @@ fromList (beg : other) = fromList2 other $ Node beg Empty Empty
 fromList2 [] tree = tree
 fromList2 (beg : other) tree = fromList2 other $ insert beg tree
 --}
-fromList list = foldr insert Empty list
+fromList list = foldr insert Empty $ reverse list
 
 getLevel level Empty = []
 getLevel 0 tree@(Node val _ _) = [val]
