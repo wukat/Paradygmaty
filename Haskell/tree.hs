@@ -98,8 +98,13 @@ getLevel level Empty = []
 getLevel 0 tree@(Node val _ _) = [val]
 getLevel level tree@(Node _ left right) | level > 0 = getLevel (level - 1) left ++ getLevel (level - 1) right
 
---newNodeWithXY x y Empty = Empty
---  newNodeWithXY x y tree@(Node val left right) = Node ((x, y), val) left right
-
---makeLayout Empty = Empty
---makeLayout2 tree@(Node val left right) count level
+makeLayout Empty = Empty
+makeLayout tree = fst (makeLayout2 tree 0 0)
+makeLayout2 tree@(Node val Empty Empty) count level  = ((Node ((count, level), val) Empty Empty), count)
+makeLayout2 tree@(Node val left Empty) count level   = (Node ((count2 + 1, level), val) (fst (makeLayout2 left count (level + 1))) Empty, count2)
+                                                     where count2 = snd (makeLayout2 left count (level + 1))
+makeLayout2 tree@(Node val Empty right) count level  = (Node ((count, level), val) Empty (fst (makeLayout2 right (count + 1) (level + 1))), count)
+makeLayout2 tree@(Node val left right) count level   = (Node ((count2 + 1, level), val)
+                                                     (fst (makeLayout2 left count (level + 1)))
+                                                     (fst (makeLayout2 right (count2 + 2) (level + 1))), count2)
+                                                     where count2 = snd (makeLayout2 left count (level + 1))
