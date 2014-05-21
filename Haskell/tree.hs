@@ -86,20 +86,20 @@ dumpDOT2 tree@(Node val left right) | left /= Empty && right /= Empty = (show va
                                     | right /= Empty && left == Empty = (show val) ++ "->" ++ (show (valueOf right)) ++ "\n" ++ (dumpDOT2 right)
                                     | otherwise = []
 
-
+{--
 fromList [] = Empty
 fromList (beg : other) = fromList2 other $ Node beg Empty Empty
 fromList2 [] tree = tree
 fromList2 (beg : other) tree = fromList2 other $ insert beg tree
-
-fromList2 list = foldr insert Empty list
+--}
+fromList list = foldr insert Empty list
 
 getLevel level Empty = []
 getLevel 0 tree@(Node val _ _) = [val]
 getLevel level tree@(Node _ left right) | level > 0 = getLevel (level - 1) left ++ getLevel (level - 1) right
 
-newNodeWithXY x y Empty = Enpty
-newNodeWithXY x y tree@(Node val left right) = Node ((x, y), val) left right
+--newNodeWithXY x y Empty = Empty
+--  newNodeWithXY x y tree@(Node val left right) = Node ((x, y), val) left right
 
 --makeLayout Empty = Empty
 --makeLayout2 tree@(Node val left right) count level
