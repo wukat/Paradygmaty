@@ -1,5 +1,23 @@
 data T a = Empty | Node a (T a) (T a)
-           deriving (Show, Eq)
+           deriving (Eq)
+
+instance Show a => Show (T a) where
+                show Empty = "Empty"
+                show (Node val Empty Empty) = "Node " ++ show val ++ " Empty Empty"
+                show (Node val left Empty) = "Node " ++ show val ++ " (" ++ show left ++ ") Empty"
+                show (Node val Empty right) = "Node " ++ show val ++ " Empty (" ++ show right ++ ")"
+                show (Node val left right) = "Node " ++ show val ++ " (" ++ show left ++ ") (" ++ show right ++ ")"
+
+data STree a = SEmpty | SLeaf a | SBranch a (STree a) (STree a)
+          deriving (Show)
+
+convert Empty = SEmpty
+convert (Node val Empty Empty) = SLeaf val
+convert (Node val left right) = SBranch val (convert left) (convert right)
+
+convB SEmpty = Empty
+convB (SLeaf val) = Node val Empty Empty
+convB (SBranch val left right) = Node val (convB left) (convB right)
 
 insert el Empty = Node el Empty Empty
 insert el tree@(Node val left right)

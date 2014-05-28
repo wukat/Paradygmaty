@@ -23,5 +23,17 @@ lastMy (first : others) = lastMy others
 
 elemMy x [] = False
 elemMy x (first : others) | x == first = True
-                            | otherwise = elemMy x others
+                          | otherwise = elemMy x others
+
+
+sumL list = foldr (+) 0 list
+productL list = foldr (*) 1 list
+reverseL list = foldr (\x -> (++ [x])) [] list
+andL list = foldr (&&) True list
+orL list = foldr (||) False list
+headL list = foldl (\x -> \y -> x) (head list) []
+lastL list = foldl (\x -> \y -> x) (last list) []
+
+headL' (first : _) = foldr (\x -> \y -> x) (first) []
+headL'' (first : _) = foldr (\x -> \y -> (id x)) (first) []
 
