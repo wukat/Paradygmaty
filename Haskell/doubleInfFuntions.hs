@@ -4,7 +4,7 @@ sklej (first, second) f  = (first ++ fst(f second), snd(f second))
 
 nic arg = ("", arg)
 
-makeMeD f arg = nic $ f arg
+makeMeD f = nic.f
 
 return arg = nic arg
 
