@@ -10,4 +10,4 @@ return arg = nic arg
 
 (>>=) (first, second) f = sklej (first, second) f
 
-(>>) f arg = makeMeD f arg
+(>>) f = makeMeD f
