@@ -25,13 +25,7 @@ main = forever $ do
 
 elemSpecial [] _ = False
 elemSpecial _ [] = False
-elemSpecial word list
-     | check word (head list) == -2     = False
-     | check word (head list) == 2      = True
-     | otherwise = elemSpecial word $ tail list
-
-check word word1
-    | word == word1              = 2
-    | head word < head word1     = -2
-    | otherwise                  = 1
-
+elemSpecial word (first : list)
+    | word == first              = True
+    | head word < head first     = False
+    | otherwise = elemSpecial word list
